@@ -22,7 +22,6 @@ export default {
   created() {
     getArray().then((res) => {
       this.arrayList = res
-      console.log(res);
     })
   },
 }

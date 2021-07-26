@@ -21,6 +21,7 @@ export default {
   created() {
     getHtml().then((res) => {
       this.htmlList = res
+      console.log(res);
     })
   },
 }
