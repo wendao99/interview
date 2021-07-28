@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import TtHtml from '@/views/TtHtml.vue'
+
 
 Vue.use(VueRouter)
 
@@ -10,10 +12,15 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/html',
+    name: 'TtHtml',
+    component: TtHtml
+  },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })

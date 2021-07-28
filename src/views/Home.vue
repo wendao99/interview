@@ -1,31 +1,43 @@
 <template>
   <div class="home">
-    <tt-html>html</tt-html>
+    <span @click="htmlClick">HTML</span>
+    <span>CSS</span>
+    <span>JavaScript</span>
+    <span>Vue</span>
   </div>
 </template>
 
 
 <script>
-import {getArray} from '@/netword/home.js'
 import TtHtml from "./TtHtml.vue"
 export default {
   name: 'Home',
   data() {
     return {
       arrayList: [],
-      
     }
   },
   components: {
     TtHtml,
   },
-  created() {
-    getArray().then((res) => {
-      this.arrayList = res
-    })
+  methods: {
+    htmlClick() {
+      this.$router.push('/html')
+    }
   },
 }
 </script>
 
 <style lang="scss">
+.home {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  font-size: 30px;
+  span {
+    padding: 20px;
+    border: solid 1px #ccc;
+    background-color: rgba($color: #a0e2eb, $alpha: 0.3);
+  }
+}
 </style>
