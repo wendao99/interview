@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import {formatDate} from './utils.js'
+import { formatDate } from "./utils.js";
 export default {
   name: "Test",
   props: {
@@ -39,18 +39,18 @@ export default {
       currentIndex: 0.1,
       isIndex: [],
       time: 0,
-      isShow: false
+      isShow: false,
     };
   },
   created() {
-      for (let i in this.data) {
-        this.isIndex.push({ is: false });
-      }
+    for (let i in this.data) {
+      this.isIndex.push({ is: false });
+    }
   },
   watch: {
     time() {
-      this.time <= 600000? this.isShow = true : this.isShow = false   
-    }
+      this.time <= 600000 ? (this.isShow = true) : (this.isShow = false);
+    },
   },
   methods: {
     submit(index) {
@@ -67,108 +67,112 @@ export default {
       }
     },
     click120() {
-      const time120 = 7200000
-      this.time = time120 
-      if(this.time > 0) {
+      const time120 = 7200000;
+      this.time = time120;
+      if (this.time > 0) {
         setInterval(() => {
-          this.time -= 1000 
+          this.time -= 1000;
         }, 1000);
       }
-      this.isShow = false
+      this.isShow = false;
     },
     click90() {
-      const time90 = 90 * 60 * 1000
-      this.time = time90 
-      if(this.time > 0) {
+      const time90 = 90 * 60 * 1000;
+      this.time = time90;
+      if (this.time > 0) {
         setInterval(() => {
-          this.time -= 1000 
+          this.time -= 1000;
         }, 1000);
       }
-      this.isShow = false
+      this.isShow = false;
     },
     click60() {
-      const time60 = 60 * 60 * 1000
-      this.time = time60 
-      if(this.time > 0) {
+      const time60 = 60 * 60 * 1000;
+      this.time = time60;
+      if (this.time > 0) {
         setInterval(() => {
-          this.time -= 1000 
+          this.time -= 1000;
         }, 1000);
       }
-      this.isShow = false
+      this.isShow = false;
     },
   },
   filters: {
     time(value) {
-      let s = value / 1000
-      let m = s / 60
-      let h = m / 60
-      let time = Math.floor(h % 60) + ':' + Math.floor(m % 60) + ':' + Math.floor(s % 60)
-      return time
-      
-    }
-  }
+      let s = value / 1000;
+      let m = s / 60;
+      let h = m / 60;
+      let time =
+        Math.floor(h % 60) +
+        ":" +
+        Math.floor(m % 60) +
+        ":" +
+        Math.floor(s % 60);
+      return time;
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>
 .test {
-  width: 100vh;
-.time {
-  width: 31.25rem;
-  margin: 0 auto;
-  margin-top: 1.25rem;
-  button {
-    margin-right: 10px;
-  }
-}
-.list {
-  width: 500px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  word-break:break-all input {
-    width: 100px;
-    height: 20px;
-    border: 1px solid #ccc;
-  }
-  .title {
-    width: 100%;
-    font-size: 20px;
-    margin-top: 20px;
-  }
-  .textarea {
-    width: 490px;
-    height: 100px;
-    margin: 10px 0;
-    border: #ccc solid 1px;
-  }
-  .submit {
-    margin-right: 10px;
-  }
-  .answer {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-    font-size: 16px;
-    word-wrap: break-word;
-    border-radius: 10px;
-    background-color: rgba(237, 238, 189, 0.5);
-    pre {
-      white-space: pre-wrap;
-      word-wrap: break-word;
+  flex-wrap:wrap;
+  .time {
+    margin-top: 1.25rem;
+    button {
+      margin-right: 5px;
     }
   }
-}
-.jishi {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 12.5rem;
-  height: 3.125rem;
-  text-align: center;
-  line-height: 3.125rem;
-  font-size: 1.5625rem;
-  background-color: rgba(167, 167, 167, 0.3);
-  border-radius: .625rem;
-}
+  .list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    width: 100%;
+    word-break:break-all input {
+      height: 20px;
+      border: 1px solid #ccc;
+    }
+    .title {
+      width: 100%;
+      font-size: 20px;
+      margin-top: 20px;
+      word-wrap: break-word;
+    }
+    .textarea {
+      width: 90%;
+      height: 100px;
+      margin: 10px 2px;
+      border: #ccc solid 1px;
+    }
+    .btn2 {
+      margin-left: 2px;
+    }
+    .answer {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      word-wrap: break-word;
+      border-radius: 10px;
+      background-color: rgba(237, 238, 189, 0.5);
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    }
+  }
+  .jishi {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 12.5rem;
+    height: 3.125rem;
+    text-align: center;
+    line-height: 3.125rem;
+    font-size: 1.5625rem;
+    background-color: rgba(167, 167, 167, 0.3);
+    border-radius: 0.625rem;
+  }
 }
 </style>

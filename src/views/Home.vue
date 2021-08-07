@@ -1,28 +1,41 @@
 <template>
   <div class="home">
     <span @click="htmlClick">HTML</span>
-    <span>CSS</span>
-    <span>JavaScript</span>
-    <span>Vue</span>
+    <span @click="cssClick">CSS</span>
+    <span @click="jsClick">JavaScript</span>
+    <span><a href="https://github.com/CavsZhouyou/Front-End-Interview-Notebook" >github </a></span>
+    
   </div>
 </template>
 
 
 <script>
 import TtHtml from "./TtHtml.vue"
+import TtCss from "./TtCss.vue"
 export default {
   name: 'Home',
   data() {
     return {
       arrayList: [],
+      github: 'https://github.com/CavsZhouyou/Front-End-Interview-Notebook'
     }
   },
   components: {
     TtHtml,
+    TtCss,
   },
   methods: {
     htmlClick() {
       this.$router.push('/html')
+    },
+    cssClick() {
+      this.$router.push('/css')
+    },
+    jsClick() {
+      this.$router.push('/javascript')
+    },
+    gitbubClick() {
+
     }
   },
 }
@@ -32,7 +45,6 @@ export default {
 .home {
   display: flex;
   flex-direction: column;
-  margin: 10px;
   font-size: 30px;
   span {
     padding: 20px;
