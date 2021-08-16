@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import TtHtml from '@/views/TtHtml.vue'
 import TtCss from '@/views/TtCss.vue'
 import TtJavaScript from '@/views/TtJavaScript'
-
+import JSFunction from '@/views/function/jsfun'
 Vue.use(VueRouter)
 
 const routes = [
@@ -27,6 +27,11 @@ const routes = [
     path: '/javascript',
     name: 'TtJavaScript',
     component: TtJavaScript
+  },
+  {
+    path: '/jsfunction',
+    name: 'JSFunction',
+    component: JSFunction
   }
 ]
 

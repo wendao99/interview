@@ -3,6 +3,7 @@
     <span @click="htmlClick">HTML</span>
     <span @click="cssClick">CSS</span>
     <span @click="jsClick">JavaScript</span>
+    <span @click="jsFunClick">JSFunction</span>
     <span><a href="https://github.com/CavsZhouyou/Front-End-Interview-Notebook" >github </a></span>
     
   </div>
@@ -33,6 +34,9 @@ export default {
     },
     jsClick() {
       this.$router.push('/javascript')
+    },
+    jsFunClick() {
+      this.$router.push('/jsfunction')
     },
     gitbubClick() {
 
