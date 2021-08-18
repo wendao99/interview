@@ -5,6 +5,7 @@
       <button @click="click120">计时120分钟</button>
       <button @click="click90">计时90分钟</button>
       <button @click="click60">计时60分钟</button>
+      <button @click="shuffleClick">洗牌</button>
       <span>{{time | time()}}</span>
     </div>
     <div class="jishi" v-show="isShow"><span>{{time | time()}}</span></div>
@@ -96,6 +97,17 @@ export default {
       }
       this.isShow = false;
     },
+    shuffle([...arr]) {
+      let m = arr.length;
+      while (m) {
+        const i = Math.floor(Math.random() * m--);
+        [arr[m], arr[i]] = [arr[i], arr[m]];
+      }
+      return arr;
+    },
+    shuffleClick() {
+      this.data = this.shuffle(this.data)
+    }
   },
   filters: {
     time(value) {

@@ -5,10 +5,12 @@
       <button @click="click120">计时120分钟</button>
       <button @click="click90">计时90分钟</button>
       <button @click="click60">计时60分钟</button>
+      <button @click="reverseClick">反转</button>
+      <button @click="shuffleClick">洗牌</button>
       <span>{{time | time()}}</span>
     </div>
     <div class="jishi" v-show="isShow"><span>{{time | time()}}</span></div>
-    <div v-for="(item,index) in data" class="list">
+    <div v-for="(item,index) in data" class="list" v-show="!isReverse">
       <p class="title">{{item.title}}</p>
       <form action="">
         <textarea class="textarea"  v-model="submitdata[index]"></textarea>
@@ -18,6 +20,18 @@
         <button class="btn2" @click="usage(index)">查看代码</button>
       </div>
       <p class="answer" v-show="isIndex.lenght !== 0 && isIndex[index].is " ><pre><code>{{item.answer}}</code></pre></p>
+      <p class="answer" v-show="isIndex.lenght !== 0 && isIndex[index].is " ><pre><code>{{item.usage}}</code></pre></p>
+    </div>
+    <div v-for="(item,index) in data" class="list" v-show="isReverse">
+      <p class="title">{{item.answer}}</p>
+      <form action="">
+        <textarea class="textarea"  v-model="submitdata[index]"></textarea>
+      </form>
+      <div>
+        <button class="btn2" @click="answer(index)">查看答案</button>
+        <button class="btn2" @click="usage(index)">查看代码</button>
+      </div>
+      <p class="answer" v-show="isIndex.lenght !== 0 && isIndex[index].is " ><pre><code>{{item.title}}</code></pre></p>
       <p class="answer" v-show="isIndex.lenght !== 0 && isIndex[index].is " ><pre><code>{{item.usage}}</code></pre></p>
     </div>
   </div>
@@ -42,6 +56,7 @@ export default {
       isIndex: [],
       time: 0,
       isShow: false,
+      isReverse: false
     };
   },
   created() {
@@ -55,6 +70,20 @@ export default {
     },
   },
   methods: {
+    reverseClick() {
+      this.isReverse = !this.isReverse
+    },
+    shuffle([...arr]) {
+      let m = arr.length;
+      while (m) {
+        const i = Math.floor(Math.random() * m--);
+        [arr[m], arr[i]] = [arr[i], arr[m]];
+      }
+      return arr;
+    },
+    shuffleClick() {
+      this.data = this.shuffle(this.data)
+    }, 
     submit(index) {
       console.log(index);
       console.log(this.submitdata[index]);
