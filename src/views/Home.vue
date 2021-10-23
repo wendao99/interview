@@ -4,6 +4,7 @@
     <span @click="cssClick">CSS</span>
     <span @click="jsClick">JavaScript</span>
     <span @click="jsFunClick">JSFunction</span>
+    <span @click="random">Random</span>
     <span><a href="https://github.com/CavsZhouyou/Front-End-Interview-Notebook" >github </a></span>
     
   </div>
@@ -37,6 +38,9 @@ export default {
     },
     jsFunClick() {
       this.$router.push('/jsfunction')
+    },
+    random() {
+      this.$router.push('/random')
     },
     gitbubClick() {
 

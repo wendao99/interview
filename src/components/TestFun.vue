@@ -2,6 +2,7 @@
 <template>
   <div class="test">
     <div class="time">
+      <button @click="click">点击</button>
       <button @click="click120">计时120分钟</button>
       <button @click="click90">计时90分钟</button>
       <button @click="click60">计时60分钟</button>
@@ -56,7 +57,7 @@ export default {
       isIndex: [],
       time: 0,
       isShow: false,
-      isReverse: false
+      isReverse: false,
     };
   },
   created() {
@@ -70,8 +71,12 @@ export default {
     },
   },
   methods: {
+    click() {
+      
+    },
+
     reverseClick() {
-      this.isReverse = !this.isReverse
+      this.isReverse = !this.isReverse;
     },
     shuffle([...arr]) {
       let m = arr.length;
@@ -82,8 +87,8 @@ export default {
       return arr;
     },
     shuffleClick() {
-      this.data = this.shuffle(this.data)
-    }, 
+      this.data = this.shuffle(this.data);
+    },
     submit(index) {
       console.log(index);
       console.log(this.submitdata[index]);
@@ -154,7 +159,7 @@ export default {
 .test {
   display: flex;
   flex-direction: column;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   .time {
     margin-top: 1.25rem;
     button {
@@ -164,7 +169,7 @@ export default {
   .list {
     display: flex;
     flex-direction: column;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     width: 100%;
     word-break:break-all input {
       height: 20px;

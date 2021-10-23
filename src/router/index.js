@@ -5,6 +5,7 @@ import TtHtml from '@/views/TtHtml.vue'
 import TtCss from '@/views/TtCss.vue'
 import TtJavaScript from '@/views/TtJavaScript'
 import JSFunction from '@/views/function/jsfun'
+import Random from '@/views/Random'
 Vue.use(VueRouter)
 
 const routes = [
@@ -32,6 +33,11 @@ const routes = [
     path: '/jsfunction',
     name: 'JSFunction',
     component: JSFunction
+  },
+  {
+    path: '/random',
+    name: 'random',
+    component: Random
   }
 ]
 

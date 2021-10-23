@@ -1,10 +1,19 @@
 <!--  -->
 <template>
   <div class="jsfun">
+    <button @click="aaa">name</button>
+    <button @click="bbb">Email</button>
+    <div v-if="loginType === 'username'">
+      <label>Username</label>
+      <input placeholder="Enter your username" key='user' />
+    </div>
+    <div v-else>
+      <label>Email</label>
+      <input placeholder="Enter your email address" key="email" />
+    </div>
     <h1>Array</h1>
     <test-fun :data="arrList"></test-fun>
     <h1>String</h1>
-    <button @click="aaa">aaa</button>
     <test-fun :data="strList"></test-fun>
     <h1>Json</h1>
     <test-fun :data="jsonList"></test-fun>
@@ -576,6 +585,7 @@ for(let i in obj){
         },
       ],
       arr: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      loginType: "username",
     };
   },
   methods: {
@@ -590,8 +600,11 @@ for(let i in obj){
       return arr;
     },
     aaa() {
-      console.log(this.shuffle(this.arr));
+      this.loginType = "username";
     },
+    bbb() {
+      this.loginType = "email";
+    }
   },
 };
 </script>
