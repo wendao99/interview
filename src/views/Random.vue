@@ -2,16 +2,21 @@
 <template>
   <div class="box">
     <div class="random">
-      <button class="btn" @click="open">随机</button>
+      <div class="anniu" >
+        <button class="btn" @click="open">随机</button>
+        <button class="btn" @click="vueClick">VUE</button>
+      </div>
       <p v-if="isp" class="wenzi">{{ random }}</p>
+      <textarea v-if="isShow"></textarea>
+      <button class="btn1" @click="isShow = !isShow" v-if="isp">写答案</button>
       <record />
     </div>
   </div>
 </template>
 
 <script>
-import Recorder from 'js-audio-recorder';
-import Record from './recroder'
+import Recorder from "js-audio-recorder";
+import Record from "./recroder";
 export default {
   data() {
     return {
@@ -333,19 +338,145 @@ export default {
       //#endregion
       isp: false,
       random: "",
+      isShow: false,
+      vueInterview: [
+        {
+          topic: `说说你对vue的理解?`,
+        },
+        {
+          topic: `说说你对双向绑定的理解?`,
+        },
+        {
+          topic: `说说你对SPA（单页应用）的理解?`,
+        },
+        {
+          topic: `Vue中的v-show和v-if怎么理解？`,
+        },
+        {
+          topic: `Vue实例挂载的过程中发生了什么?`,
+        },
+        {
+          topic: `说说你对Vue生命周期的理解?`,
+        },
+        {
+          topic: `为什么Vue中的v-if和v-for不建议一起用?`,
+        },
+        {
+          topic: `SPA（单页应用）首屏加载速度慢怎么解决？?`,
+        },
+        {
+          topic: `为什么data属性是一个函数而不是一个对象？`,
+        },
+        {
+          topic: `Vue中给对象添加新属性界面不刷新?`,
+        },
+        {
+          topic: `Vue中组件和插件有什么区别`,
+        },
+        {
+          topic: `Vue组件间通信方式都有哪些?`,
+        },
+        {
+          topic: `说说你对nexttick的理解?`,
+        },
+        {
+          topic: `说说你对vue的mixin的理解，有什么应用场景？`,
+        },
+        {
+          topic: `说说你对slot的理解？slot使用场景有哪些？`,
+        },
+        {
+          topic: `Vue.observable你有了解过吗？说说看`,
+        },
+        {
+          topic: `你知道vue中key的原理吗？说说你对它的理解？`,
+        },
+        {
+          topic: `怎么缓存当前的组件？缓存后怎么更新？说说你对keep-alive的理解是什么？`,
+        },
+        {
+          topic: `Vue常用的修饰符有哪些？有什么应用场景？`,
+        },
+        {
+          topic: `你有写过自定义指令吗？自定义指令的应用场景有哪些？`,
+        },
+        {
+          topic: `Vue中的过滤器了解吗？过滤器的应用场景有哪些？`,
+        },
+        {
+          topic: `什么是虚拟DOM？如何实现一个虚拟DOM？说说你的思路`,
+        },
+        {
+          topic: `了解过vue中的diff算法吗？说说看`,
+        },
+        {
+          topic: `Vue项目中有封装过axios吗？怎么封装的？`,
+        },
+        {
+          topic: `你了解Axios的原理吗？有看过它的源码吗？`,
+        },
+        {
+          topic: `SSR解决了什么问题？有做过SSR吗？你是怎么做的？`,
+        },
+        {
+          topic: `说下你的Vue项目的目录结构，如果是大型项目你该怎么划分结构和划分组件呢？`,
+        },
+        {
+          topic: `Vue要做权限管理该怎么做？控制到按钮级别的权限怎么做？`,
+        },
+        {
+          topic: `跨域是什么？Vue项目中你是如何解决跨域的呢？`,
+        },
+        {
+          topic: `Vue项目如何部署？有遇到布署服务器后刷新404问题吗？`,
+        },
+        {
+          topic: `你是怎么处理vue项目中的错误的？`,
+        },
+        {
+          topic: `Vue3有了解过吗？能说说跟Vue2的区别吗？`,
+        },
+        {
+          topic: `Vue3.0的设计目标是什么？做了哪些优化?`,
+        },
+        {
+          topic: `Vue3.0 性能提升主要是通过哪几方面体现的？`,
+        },
+        {
+          topic: `Vue3.0里为什么要用 Proxy API 替代 defineProperty API ？`,
+        },
+        {
+          topic: `Vue3.0 所采用的 Composition Api 与 Vue2.x 使用的 Options Api 有什么不同？`,
+        },
+        {
+          topic: `说说Vue 3.0中Treeshaking特性？举例说明一下？`,
+        },
+        {
+          topic: `用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？`,
+        },
+      ]
     };
   },
   components: {
-    Record
+    Record,
   },
   created() {
     this.recorder = new Recorder();
   },
   methods: {
-    open() {
+    vueClick() {
+      let randomNum = this.getRndInteger(0, this.vueInterview.length)
       this.isp = true;
       this.random =
-        this.interview[this.getRndInteger(0, this.interview.length)].topic;
+        this.vueInterview[randomNum].topic;
+      this.vueInterview.splice(randomNum,1)
+    },
+    open() {
+      let randomNum = this.getRndInteger(0, this.interview.length)
+      this.isp = true;
+      this.random =
+        this.interview[randomNum].topic;
+      this.interview.splice(randomNum,1)
     },
     getRndInteger(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
@@ -373,7 +504,19 @@ export default {
       font-size: 25px;
       text-align: center;
       background: aquamarine;
-      border-radius: 10px;
+      border-radius: 5px;
+      margin: 0 10px;
+    }
+    .btn1 {
+      font-size: 10px;
+      text-align: center;
+      background: aquamarine;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    textarea {
+      font-size: 16px;
+      margin-top: 10px;
     }
     .wenzi {
       font-size: 25px;
@@ -401,5 +544,8 @@ export default {
       margin-top: 10px;
     }
   }
+}
+.anniu {
+  display: flex;
 }
 </style>
