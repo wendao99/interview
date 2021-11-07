@@ -2,14 +2,28 @@
 <template>
   <div class="box">
     <div class="random">
-      <div class="anniu" >
+      <div class="anniu">
         <button class="btn" @click="open">随机</button>
         <button class="btn" @click="vueClick">VUE</button>
       </div>
       <p v-if="isp" class="wenzi">{{ random }}</p>
-      <textarea v-if="isShow"></textarea>
-      <button class="btn1" @click="isShow = !isShow" v-if="isp">写答案</button>
-      <record />
+      <div class="anniu">
+        <button class="btn1" @click="isShow = !isShow" v-if="isp">写答案</button>
+        <button class="btn1" @click="isRecord = !isRecord" v-if="isp">录音</button>
+      </div>
+      <textarea
+        v-if="isShow"
+        style="width: 40%; height: 200px; font-size: 20px"
+        v-model="content"
+      ></textarea>
+      <button class="btn1" @click="saveData" v-if="isShow">保存</button>
+      <record class="record" v-if="isRecord" />
+      <div class="answer">
+        <div v-for="(item, index) of answerList" class="item">
+          <h1>{{ item.topic }} <button @click="remove(index)">删除</button></h1>
+          <p>{{ item.answer }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -338,7 +352,9 @@ export default {
       //#endregion
       isp: false,
       random: "",
+      randomNum: 0,
       isShow: false,
+      isRecord: false,
       vueInterview: [
         {
           topic: `说说你对vue的理解?`,
@@ -454,7 +470,9 @@ export default {
         {
           topic: `用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？`,
         },
-      ]
+      ],
+      content: "",
+      answerList: [],
     };
   },
   components: {
@@ -462,21 +480,38 @@ export default {
   },
   created() {
     this.recorder = new Recorder();
+    this.getContent();
   },
   methods: {
+    remove(index) {
+      let list = JSON.parse(localStorage.getItem('answer') || '[]')
+      list.splice(index, 1)
+      localStorage.setItem("answer", JSON.stringify(list))
+      this.getContent()
+    },
+    saveData() {
+      let obj = { id: Date.now(), topic: this.random, answer: this.content };
+      let list = JSON.parse(localStorage.getItem("answer") || "[]");
+      list.unshift(obj);
+      localStorage.setItem("answer", JSON.stringify(list));
+      this.content = ''
+      this.getContent();
+      console.log(this.answerList);
+    },
+    getContent() {
+      this.answerList = JSON.parse(localStorage.getItem("answer") || "[]");
+    },
     vueClick() {
-      let randomNum = this.getRndInteger(0, this.vueInterview.length)
+      this.randomNum = this.getRndInteger(0, this.vueInterview.length);
       this.isp = true;
-      this.random =
-        this.vueInterview[randomNum].topic;
-      this.vueInterview.splice(randomNum,1)
+      this.random = this.vueInterview[this.randomNum].topic;
+      this.vueInterview.splice(this.randomNum, 1);
     },
     open() {
-      let randomNum = this.getRndInteger(0, this.interview.length)
+      this.randomNum = this.getRndInteger(0, this.interview.length);
       this.isp = true;
-      this.random =
-        this.interview[randomNum].topic;
-      this.interview.splice(randomNum,1)
+      this.random = this.interview[this.randomNum].topic;
+      this.interview.splice(this.randomNum, 1);
     },
     getRndInteger(min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
@@ -486,14 +521,8 @@ export default {
 </script>
 <style lang='scss' scoped>
 .box {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: antiquewhite;
   .random {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -511,8 +540,8 @@ export default {
       font-size: 10px;
       text-align: center;
       background: aquamarine;
-      border-radius: 5px;
-      margin-top: 10px;
+      border-radius: 4px;
+      margin: 10px;
     }
     textarea {
       font-size: 16px;
@@ -542,6 +571,26 @@ export default {
     }
     .audio-player {
       margin-top: 10px;
+    }
+    .record {
+      position: relative;
+    }
+    .answer {
+      margin: 0 25%;
+      text-align: left;
+      .item {
+        margin-bottom: 50px;
+        h1 {
+          font-size: 20px;
+          font-weight: bolder;
+          margin: 20px 0;
+          border-bottom: solid 1px #ccc;
+          button {
+            float: right;
+            background: red;
+          }
+        }
+      }
     }
   }
 }
