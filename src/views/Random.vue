@@ -8,15 +8,23 @@
       </div>
       <p v-if="isp" class="wenzi">{{ random }}</p>
       <div class="anniu">
-        <button class="btn1" @click="isShow = !isShow" v-if="isp">写答案</button>
-        <button class="btn1" @click="isRecord = !isRecord" v-if="isp">录音</button>
+        <button class="btn1" @click="isShow = !isShow" v-if="isp">
+          写答案
+        </button>
+        <button class="btn1" @click="isRecord = !isRecord" v-if="isp">
+          录音
+        </button>
       </div>
-      <textarea
-        v-if="isShow"
-        style="width: 40%; height: 200px; font-size: 20px"
-        v-model="content"
-      ></textarea>
-      <button class="btn1" @click="saveData" v-if="isShow">保存</button>
+      <div class="textarea" v-if="isShow">
+        <div class="textarea-bg" @click="isShow = false"></div>
+        <div class="textarea-a">
+          <textarea
+            v-model="content"
+          ></textarea>
+          <span>{{content.length}}</span>
+        </div>
+        <button class="btn1" @click="saveData">保存</button>
+      </div>
       <record class="record" v-if="isRecord" />
       <div class="answer">
         <div v-for="(item, index) of answerList" class="item">
@@ -355,6 +363,8 @@ export default {
       randomNum: 0,
       isShow: false,
       isRecord: false,
+      isText: false,
+      //#region
       vueInterview: [
         {
           topic: `说说你对vue的理解?`,
@@ -471,6 +481,7 @@ export default {
           topic: `用Vue3.0 写过组件吗？如果想实现一个 Modal你会怎么设计？`,
         },
       ],
+      //#endregion
       content: "",
       answerList: [],
     };
@@ -484,18 +495,19 @@ export default {
   },
   methods: {
     remove(index) {
-      let list = JSON.parse(localStorage.getItem('answer') || '[]')
-      list.splice(index, 1)
-      localStorage.setItem("answer", JSON.stringify(list))
-      this.getContent()
+      let list = JSON.parse(localStorage.getItem("answer") || "[]");
+      list.splice(index, 1);
+      localStorage.setItem("answer", JSON.stringify(list));
+      this.getContent();
     },
     saveData() {
       let obj = { id: Date.now(), topic: this.random, answer: this.content };
       let list = JSON.parse(localStorage.getItem("answer") || "[]");
       list.unshift(obj);
       localStorage.setItem("answer", JSON.stringify(list));
-      this.content = ''
+      this.content = "";
       this.getContent();
+      this.isShow = false;
       console.log(this.answerList);
     },
     getContent() {
@@ -596,5 +608,44 @@ export default {
 }
 .anniu {
   display: flex;
+}
+.textarea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(254, 255, 246);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .textarea-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .textarea-a {
+    position: relative;
+    height: 200px;
+    width: 40%;
+    z-index: 1000;
+    margin-bottom: 20px;
+    textarea {
+      width: 100%;
+      height: 100%;
+    }
+    span {
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+    }
+  }
+  button {
+    z-index: 1000;
+    width: 60px;
+    height: 30px;
+  }
 }
 </style>
